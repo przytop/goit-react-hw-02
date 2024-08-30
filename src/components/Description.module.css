@@ -1,0 +1,15 @@
+.description {
+  margin-bottom: 40px;
+}
+
+.logo {
+  min-width: 77px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  gap: 25px;
+}

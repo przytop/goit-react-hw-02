@@ -1,10 +1,53 @@
-// import { useState } from 'react'
+import { useState, useEffect } from "react";
 import "./App.css";
+import Description from "./Description";
+import Options from "./Options";
+import Feedback from "./Feedback";
+import Notification from "./Notification";
 
 export default function App() {
+  const [ratings, setRatings] = useState(() => {
+    const savedRatings = window.localStorage.getItem("saved-ratings");
+    return savedRatings !== null
+      ? JSON.parse(savedRatings)
+      : {
+          good: 0,
+          neutral: 0,
+          bad: 0,
+        };
+  });
+
+  const totalFeedback = ratings.good + ratings.neutral + ratings.bad;
+
+  useEffect(() => {
+    window.localStorage.setItem("saved-ratings", JSON.stringify(ratings));
+  }, [ratings]);
+
+  const updateFeedback = (feedbackType) => {
+    setRatings((currentRatings) => {
+      if (feedbackType === "reset") {
+        return {
+          good: 0,
+          neutral: 0,
+          bad: 0,
+        };
+      }
+      return {
+        ...currentRatings,
+        [feedbackType]: currentRatings[feedbackType] + 1,
+      };
+    });
+  };
+
   return (
     <>
-      <h1>goit-react-hw-02</h1>
+      <Description />
+      <Options total={totalFeedback} onUpdate={updateFeedback} />
+      {totalFeedback > 0 ? (
+        <Feedback value={ratings} total={totalFeedback} />
+      ) : (
+        <Notification />
+      )}
     </>
   );
 }
