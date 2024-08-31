@@ -7,10 +7,11 @@ import Notification from "./Notification";
 
 export default function App() {
   const savedRatings = window.localStorage.getItem("saved-ratings");
+  const initialRatings = savedRatings
+    ? JSON.parse(savedRatings)
+    : { good: 0, neutral: 0, bad: 0 };
 
-  const [ratings, setRatings] = useState(
-    savedRatings ? JSON.parse(savedRatings) : { good: 0, neutral: 0, bad: 0 }
-  );
+  const [ratings, setRatings] = useState(initialRatings);
 
   const totalFeedback = ratings.good + ratings.neutral + ratings.bad;
 
