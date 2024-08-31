@@ -7,11 +7,12 @@ import Notification from "./Notification";
 
 export default function App() {
   const savedRatings = window.localStorage.getItem("saved-ratings");
-  const totalFeedback = ratings.good + ratings.neutral + ratings.bad;
 
   const [ratings, setRatings] = useState(
     savedRatings ? JSON.parse(savedRatings) : { good: 0, neutral: 0, bad: 0 }
   );
+
+  const totalFeedback = ratings.good + ratings.neutral + ratings.bad;
 
   useEffect(() => {
     window.localStorage.setItem("saved-ratings", JSON.stringify(ratings));
