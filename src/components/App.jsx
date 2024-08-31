@@ -6,18 +6,12 @@ import Feedback from "./Feedback";
 import Notification from "./Notification";
 
 export default function App() {
-  const [ratings, setRatings] = useState(() => {
-    const savedRatings = window.localStorage.getItem("saved-ratings");
-    return savedRatings !== null
-      ? JSON.parse(savedRatings)
-      : {
-          good: 0,
-          neutral: 0,
-          bad: 0,
-        };
-  });
-
+  const savedRatings = window.localStorage.getItem("saved-ratings");
   const totalFeedback = ratings.good + ratings.neutral + ratings.bad;
+
+  const [ratings, setRatings] = useState(
+    savedRatings ? JSON.parse(savedRatings) : { good: 0, neutral: 0, bad: 0 }
+  );
 
   useEffect(() => {
     window.localStorage.setItem("saved-ratings", JSON.stringify(ratings));
