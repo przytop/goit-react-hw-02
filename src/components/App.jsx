@@ -20,19 +20,18 @@ export default function App() {
   }, [ratings]);
 
   const updateFeedback = (feedbackType) => {
-    setRatings((currentRatings) => {
-      if (feedbackType === "reset") {
-        return {
-          good: 0,
-          neutral: 0,
-          bad: 0,
-        };
-      }
-      return {
-        ...currentRatings,
-        [feedbackType]: currentRatings[feedbackType] + 1,
-      };
-    });
+    setRatings((currentRatings) =>
+      feedbackType === "reset"
+        ? {
+            good: 0,
+            neutral: 0,
+            bad: 0,
+          }
+        : {
+            ...currentRatings,
+            [feedbackType]: currentRatings[feedbackType] + 1,
+          }
+    );
   };
 
   return (
